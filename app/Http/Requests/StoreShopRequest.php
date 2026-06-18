@@ -12,7 +12,7 @@ class StoreShopRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return $this->user()->isOwner();
     }
 
     /**
@@ -23,7 +23,21 @@ class StoreShopRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => ['required', 'string', 'max:255'],
+            'address' => ['required', 'string', 'max:255'],
+            'description' => ['required', 'text', 'max:1000'],
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'name.required' => '店舗名は必須です',
+            'name.max' => '店舗名は255文字以内で入力してください',
+            'address.required' => '住所は必須です',
+            'address.max' => '住所は255文字以内で入力してください',
+            'description.required' => '店舗紹介文は必須です',
+            'description.max' => '店舗紹介文は1000文字以内で入力してください',
         ];
     }
 }
