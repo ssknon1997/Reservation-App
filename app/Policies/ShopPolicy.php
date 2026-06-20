@@ -25,12 +25,12 @@ class ShopPolicy
 
     public function update(User $user, Shop $shop): bool
     {
-        return $user->isOwner() && $user()->id === $shop->user_id;
+        return $user->isOwner() && $user->id === $shop->user_id;
     }
 
     public function delete(User $user, Shop $shop): bool
     {
-        return $user->isOwner() && $user()->id === $shop->user_id;
+        return $user->isOwner() && $user->id === $shop->user_id;
     }
 
 }
