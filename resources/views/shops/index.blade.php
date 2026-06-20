@@ -6,7 +6,7 @@
     <div class="max-w-7xl mx-auto px-4 py-8">
         <div class="flex justify-between items-center mb-6">
             @auth
-                @if(auth()->user->isOwner())
+                @if(auth()->user()->isOwner())
                     <a href="{{ route('shops.create') }}"
                         class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
                         店舗を登録する
@@ -27,7 +27,7 @@
                     <h2 class="text-xl font-semibold mb-2">{{ $shop->name }}</h2>
                     <p class="text-gray-600 mb-2">{{ $shop->address }}</p>
                     <p class="text-gray-500 text-sm mb-4">{{ $shop->description }}</p>
-                    <a href="{{ route('shops.show, $shop') }}"
+                    <a href="{{ route('shops.show', $shop) }}"
                         class="text-blue-500 hover:underline">
                         店舗詳細を見る
                     </a>
