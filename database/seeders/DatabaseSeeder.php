@@ -18,22 +18,22 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
 
-        $users = User::factory(50)->create([
-            'role' => 'user',
-        ]);
+    $users = User::factory(10)->create(['role' => 'user']);
 
-        $owners = User::factory(4)->create([
-            'role' => 'owner',
-        ]);
+    $owners = User::factory(5)->create(['role' => 'owner']);
 
-        $shops = Shop::factory(12)->recycle()->create([
-            'user_id' => $owners->random()->id,
-        ]);
+    $shops = collect();
+    foreach ($owners as $owner) {
+        $ownerShops = Shop::factory(2)->create(['user_id' => $owner->id]);
+        $shops = $shops->merge($ownerShops);
+    }
 
-        Reservation::factory(100)->recycle()->create([
-            'user_id' => $users->random()->id,
+    foreach ($users as $user) {
+        Reservation::factory(3)->create([
+            'user_id' => $user->id,
             'shop_id' => $shops->random()->id,
         ]);
+    }
 
     }
 }
