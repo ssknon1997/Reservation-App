@@ -25,7 +25,7 @@ class StoreShopRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'max:255'],
             'address' => ['required', 'string', 'max:255'],
-            'description' => ['required', 'text', 'max:1000'],
+            'description' => ['required', 'string', 'max:1000'],
         ];
     }
 
