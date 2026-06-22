@@ -23,7 +23,7 @@ class StoreReservationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'shop_id'     => ['required', 'exists:shop,id'],
+            'shop_id'     => ['required', 'exists:shops,id'],
             'reserved_at' => ['required', 'date','after:now'],
             'note'        => ['nullable', 'string', 'max:500'],
         ];
