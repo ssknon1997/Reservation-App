@@ -63,4 +63,12 @@ class ReservationController extends Controller
         return redirect()->route('reservations.index')
             ->with('success', '予約を削除しました');
     }
+
+    public function cancel(Reservation $reservation)
+    {
+        $this->authorize('cancel', $reservation);
+        $reservation->update(['status' => 'canceled']);
+        return redirect()->route('reservations.index')
+            ->with('success', '予約をキャンセルしました');
+    }
 }
