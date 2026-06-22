@@ -29,12 +29,12 @@
                         class="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600">
                     編集
                 </a>
-                <form action="{{ route('reservations.destroy', $reservation) }}" method="POST"
+                <form action="{{ route('reservations.cancel', $reservation) }}" method="POST"
                         onsubmit="return confirm('キャンセルしますか？')">
                     @csrf
-                    @method('DELETE')
+                    @method('PATCH')
                     <button class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">
-                        削除
+                        キャンセル
                     </button>
                 </form>
             </div>
