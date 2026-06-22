@@ -53,5 +53,5 @@ class ShopController extends Controller
         return redirect()->route('shops.index')
             ->with('success', '店舗を削除しました');
     }
-    
+
 }
