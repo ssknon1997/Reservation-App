@@ -29,4 +29,12 @@ class OwnerReservationController extends Controller
         );
         return view('owner.reservations.show', compact('reservation'));
     }
+
+    public function confirm(Resevation $reservation)
+    {
+        $this->authorize('confirm', $reservation);
+        $reservation->update(['status' => 'confirmed']);
+        return redirect()->route('owner.reservations.index')
+            ->with('success', '予約を確定しました');
+    }
 }
