@@ -49,12 +49,21 @@
                                         class="text-blue-500 hover:underline">詳細</a>
                                     <a href="{{ route('reservations.edit', $reservation) }}"
                                         class="text-yellow-500 hover:underline">編集</a>
-                                    <form action="{{ route('reservations.destroy', $reservation) }}" method="POST"
-                                        onsubmit="return confirm('キャンセルしますか？')">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button class="text-red-500 hover:underline">削除</button>
-                                    </form>
+                                    @if(in_array($reservation->status, ['pending', 'confirmed']))
+                                        <form action="{{ route('reservations.cancel', $reservation) }}" method="POST"
+                                            onsubmit="return confirm('キャンセルしますか？')">
+                                            @csrf
+                                            @method('PATCH')
+                                            <button class="text-red-500 hover:underline">キャンセル</button>
+                                        </form>
+                                    @else
+                                        <form action="{{ route('reservations.destroy', $reservation) }}" method="POST"
+                                            onsubmit="return confirm('削除しますか？')">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button class="text-red-500 hover:underline">削除</button>
+                                        </form>
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach
