@@ -34,4 +34,14 @@ class ReservationPolicy
         return $user->id === $reservation->user_id;
     }
 
+    public function confirm(User $user, Reservation $reservation): bool
+    {
+        return $user->isOwner() && $reservation->shop->user_id === $user->id;
+    }
+
+    public function cancel(User $user, Reservation $reservation): bool
+    {
+        return $user->id === $reservation->user_id;
+    }
+
 }
