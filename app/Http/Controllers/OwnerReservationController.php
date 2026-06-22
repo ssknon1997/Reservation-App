@@ -30,7 +30,7 @@ class OwnerReservationController extends Controller
         return view('owner.reservations.show', compact('reservation'));
     }
 
-    public function confirm(Resevation $reservation)
+    public function confirm(Reservation $reservation)
     {
         $this->authorize('confirm', $reservation);
         $reservation->update(['status' => 'confirmed']);
