@@ -26,6 +26,18 @@
                     <dt class="text-sm text-gray-500">メモ</dt>
                     <dd class="text-gray-800">{{ $reservation->note ?? 'なし' }}</dd>
                 </div>
+                <div class="flex gap-4 mt-6">
+                    @if($reservation->status === 'pending')
+                        <form action="{{ route('owner.reservations.confirm', $reservation) }}" method="POST"
+                            onsubmit="return confirm('予約を確定しますか？')">
+                            @csrf
+                            @method('PATCH')
+                            <button class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
+                                予約を確定する
+                            </button>
+                        </form>
+                    @endif
+                </div>
             </dl>
         </div>
 
