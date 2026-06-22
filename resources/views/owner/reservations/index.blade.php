@@ -37,6 +37,17 @@
                                     <a href="{{ route('owner.reservations.show', $reservation) }}"
                                         class="text-blue-500 hover:underline">詳細</a>
                                 </td>
+
+                                @if($reservation->status === 'pending')
+                                    <td class="px-4 py-3">
+                                        <form action="{{ route('owner.reservations.confirm', $reservation) }}" method="POST"
+                                            onsubmit="return confirm('確定しますか？')">
+                                            @csrf
+                                            @method('PATCH')
+                                            <button class="text-green-500 hover:underline">確定する</button>
+                                        </form>
+                                    </td>
+                                @endif
                             </tr>
                         @endforeach
                     </tbody>
