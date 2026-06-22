@@ -21,13 +21,21 @@ Route::middleware(['auth'])->group(function () {
             ->name('owner.reservations.index');
         Route::get('owner/reservations/{reservation}', [OwnerReservationController::class, 'show'])
             ->name('owner.reservations.show');
+
+        Route::patch('owner/reservations/{reservation}/confirm', [OwnerReservationController::class, 'confirm'])
+        ->name('owner.reservations.confirm');
     });
 
     Route::resource('reservations', ReservationController::class);
+
+    Route::patch('reservations/{reservation}/cancel', [ReservationController::class, 'cancel'])
+        ->name('reservations.cancel');
+
 });
 
 Route::resource('shops', ShopController::class)
     ->only(['index', 'show']);
+
 
 Route::get('/dashboard', function () {
     return redirect()->route('shops.index');
