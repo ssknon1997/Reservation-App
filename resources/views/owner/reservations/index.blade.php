@@ -16,6 +16,7 @@
                             <th class="px-4 py-3 text-left">予約日時</th>
                             <th class="px-4 py-3 text-left">ステータス</th>
                             <th class="px-4 py-3 text-left">操作</th>
+                            <th class="px-4 py-3 text-left"></th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-100">
