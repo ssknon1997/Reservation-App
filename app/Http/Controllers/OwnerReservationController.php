@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Models\Shop;
+use App\Models\Reservation;
 
 class OwnerReservationController extends Controller
 {
@@ -20,9 +20,13 @@ class OwnerReservationController extends Controller
         return view('owner.reservations.index', compact('reservations'));
     }
 
-    public function show(Shop $shop, $reservationId)
+    public function show(Reservation $reservation)
     {
-        $reservation = $shop->reservations()->findOrFail($reservationId);
+        abort_unless(
+            $reservation->shop->user_id === auth()->id(),
+            403,
+            'この予約を見る権限がありません'
+        );
         return view('owner.reservations.show', compact('reservation'));
     }
 }
