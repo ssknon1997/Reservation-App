@@ -22,7 +22,7 @@ class ShopController extends Controller
 
     public function store(StoreShopRequest $request)
     {
-        $request->user()->shops()->create($request->validated());
+        auth()->user()->shops()->create($request->validated());
         return redirect()->route('shops.index')
             ->with('success', '店舗を登録しました');
     }
