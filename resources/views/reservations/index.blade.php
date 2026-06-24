@@ -51,14 +51,14 @@
                                         <a href="{{ route('reservations.edit', $reservation) }}"
                                             class="text-yellow-500 hover:underline">編集</a>
                                     @endif
-                                    @if(in_array($reservation->status, ['pending', 'confirmed']))
+                                    @if($reservation->status ==='pending')
                                         <form action="{{ route('reservations.cancel', $reservation) }}" method="POST"
                                             onsubmit="return confirm('キャンセルしますか？')">
                                             @csrf
                                             @method('PATCH')
                                             <button class="text-red-500 hover:underline">キャンセル</button>
                                         </form>
-                                    @else
+                                    @elseif($reservation->status ==='cancelled')
                                         <form action="{{ route('reservations.destroy', $reservation) }}" method="POST"
                                             onsubmit="return confirm('削除しますか？')">
                                             @csrf

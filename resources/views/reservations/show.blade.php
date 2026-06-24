@@ -31,7 +31,7 @@
                         編集
                     </a>
                 @endif
-                @if(in_array($reservation->status, ['pending', 'confirmed']))
+                @if($reservation->status ==='pending')
                     <form action="{{ route('reservations.cancel', $reservation) }}" method="POST"
                             onsubmit="return confirm('キャンセルしますか？')">
                         @csrf
@@ -40,7 +40,7 @@
                             キャンセル
                         </button>
                     </form>
-                @else
+                @elseif($reservation->status ==='cancelled')
                     <form action="{{ route('reservations.destroy', $reservation) }}" method="POST"
                         onsubmit="return confirm('削除しますか？')">
                         @csrf
