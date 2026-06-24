@@ -47,8 +47,10 @@
                                 <td class="px-4 py-3 flex gap-2">
                                     <a href="{{ route('reservations.show', $reservation) }}"
                                         class="text-blue-500 hover:underline">詳細</a>
-                                    <a href="{{ route('reservations.edit', $reservation) }}"
-                                        class="text-yellow-500 hover:underline">編集</a>
+                                    @if($reservation->status === 'pending')
+                                        <a href="{{ route('reservations.edit', $reservation) }}"
+                                            class="text-yellow-500 hover:underline">編集</a>
+                                    @endif
                                     @if(in_array($reservation->status, ['pending', 'confirmed']))
                                         <form action="{{ route('reservations.cancel', $reservation) }}" method="POST"
                                             onsubmit="return confirm('キャンセルしますか？')">
