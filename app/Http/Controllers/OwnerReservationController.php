@@ -22,11 +22,7 @@ class OwnerReservationController extends Controller
 
     public function show(Reservation $reservation)
     {
-        abort_unless(
-            $reservation->shop->user_id === auth()->id(),
-            403,
-            'この予約を見る権限がありません'
-        );
+        $this->authorize('viewAsOwner', $reservation);
         return view('owner.reservations.show', compact('reservation'));
     }
 
