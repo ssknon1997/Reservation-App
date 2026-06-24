@@ -47,6 +47,11 @@ class User extends Authenticatable
         return $this->role === 'owner';
     }
 
+    public function isUser(): bool
+    {
+        return $this->role === 'user';
+    }
+
     protected function casts(): array
     {
         return [

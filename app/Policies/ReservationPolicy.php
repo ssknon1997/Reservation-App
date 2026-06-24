@@ -11,7 +11,7 @@ class ReservationPolicy
 
     public function viewAny(User $user): bool
     {
-        return $user->role === 'user';
+        return $user->isUser();
     }
 
     public function viewAsOwner(User $user, Reservation $reservation): bool
@@ -26,7 +26,7 @@ class ReservationPolicy
 
     public function create(User $user): bool
     {
-        return $user->role === 'user';
+        return $user->isUser();
     }
 
     public function update(User $user, Reservation $reservation): bool

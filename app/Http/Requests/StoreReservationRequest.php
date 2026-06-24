@@ -12,7 +12,7 @@ class StoreReservationRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return $this->user()->role === 'user';
+        return $this->user()->isUser();
     }
 
     /**

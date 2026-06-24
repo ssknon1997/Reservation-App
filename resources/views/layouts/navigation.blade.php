@@ -9,7 +9,7 @@
                     </x-nav-link>
 
                     @auth
-                        @if(auth()->user()->role === 'user')
+                        @if(auth()->user()->isUser())
                             <x-nav-link :href="route('reservations.index')" :active="request()->routeIs('reservations.*')">
                                 {{ __('予約一覧') }}
                             </x-nav-link>

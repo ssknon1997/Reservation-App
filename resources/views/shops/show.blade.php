@@ -11,7 +11,7 @@
 
             <div class="flex gap-4">
                 @auth
-                    @if(auth()->user()->role === 'user')
+                    @if(auth()->user()->isUser())
                         <a href="{{ route('reservations.create', ['shop_id' => $shop->id]) }}"
                             class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
                             予約する
