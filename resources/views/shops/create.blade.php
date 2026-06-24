@@ -1,12 +1,12 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="text-xl font-semibold text-gray-800">店舗一覧</h2>
+        <h2 class="text-xl font-semibold text-gray-800">店舗作成</h2>
     </x-slot>
 
     <div class="max-w-2xl mx-auto px-4 py-8">
         <form action="{{ route('shops.store') }}" method="POST" class="bg-white rounded-lg shadow p-6">
             @csrf
-            
+
             <div class="mb-4">
                 <label for="name" class="block text-sm font-medium text-gray-700 mb-1">店舗名</label>
                 <input type="text" name="name" id="name" value="{{ old('name') }}" placeholder="必須：店舗名を入力してください"
