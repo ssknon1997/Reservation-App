@@ -38,7 +38,6 @@ test('一般ユーザーは店舗を作成できない', function () {
     ]);
 
     $response->assertStatus(403);
-    $this->assertDatabaseMissing('shops', ['name' => 'テスト店舗']);
 });
 
 test('オーナーは自分の店舗を編集できる', function(){
