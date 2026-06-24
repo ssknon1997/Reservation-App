@@ -14,6 +14,11 @@ class ReservationPolicy
         return $user->role === 'user';
     }
 
+    public function viewAsOwner(User $user, Reservation $reservation): bool
+    {
+        return $user->isOwner() && $reservation->shop->user_id === $user->id;
+    }
+
     public function view(User $user, Reservation $reservation): bool
     {
         return $user->id === $reservation->user_id;
@@ -26,22 +31,26 @@ class ReservationPolicy
 
     public function update(User $user, Reservation $reservation): bool
     {
-        return $user->id === $reservation->user_id;
+        return $user->id === $reservation->user_id
+            && $reservation->status === 'pending';
     }
 
     public function delete(User $user, Reservation $reservation): bool
     {
-        return $user->id === $reservation->user_id;
+        return $user->id === $reservation->user_id
+            && $reservation->status === 'cancelled';
     }
 
     public function confirm(User $user, Reservation $reservation): bool
     {
-        return $user->isOwner() && $reservation->shop->user_id === $user->id;
+        return $user->isOwner() && $reservation->shop->user_id === $user->id
+            && $reservation->status === 'pending';
     }
 
     public function cancel(User $user, Reservation $reservation): bool
     {
-        return $user->id === $reservation->user_id;
+        return $user->id === $reservation->user_id
+            && $reservation->status !== 'cancelled';
     }
 
 }
