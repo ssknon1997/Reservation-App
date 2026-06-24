@@ -39,7 +39,7 @@ Route::resource('shops', ShopController::class)
 
 Route::get('/dashboard', function () {
     return redirect()->route('shops.index');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth'])->name('dashboard');
 
 
 Route::middleware('auth')->group(function () {
