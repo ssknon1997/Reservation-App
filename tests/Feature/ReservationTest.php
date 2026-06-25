@@ -35,7 +35,10 @@ test('オーナは予約を作成できない', function () {
 
 test('一般ユーザーは自分の予約を編集できる', function () {
     $user = User::factory()->create(['role' => 'user']);
-    $reservation = Reservation::factory()->create(['user_id' => $user->id]);
+    $reservation = Reservation::factory()->create([
+        'user_id' => $user->id,
+        'status'  => 'pending',
+    ]);
 
     $response = $this->actingAs($user)->put(route('reservations.update', $reservation), [
         'reserved_at' => now()->addDays(5)->format('Y-m-d H:i:s'),
@@ -49,7 +52,10 @@ test('一般ユーザーは自分の予約を編集できる', function () {
 test('一般ユーザーは他人の予約を編集できない', function () {
     $user = User::factory()->create(['role' => 'user']);
     $other = User::factory()->create(['role' => 'user']);
-    $reservation = Reservation::factory()->create(['user_id' => $other->id]);
+    $reservation = Reservation::factory()->create([
+        'user_id' => $other->id,
+        'status'  => 'pending',
+        ]);
 
     $response = $this->actingAs($user)->put(route('reservations.update', $reservation), [
         'reserved_at' => now()->addDays(5)->format('Y-m-d H:i:s'),
