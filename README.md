@@ -54,7 +54,7 @@
 
 ## ER図
 
-![ER図](images/erd-capture.png)
+![ER図](images/erd_capture.png)
 
 users（ユーザー）・shops（店舗）・reservations（予約）の
 3テーブルを中心に設計しています。
