@@ -21,7 +21,7 @@ RUN composer install --no-interaction --optimize-autoloader --no-dev
 
 COPY ./nginx.conf /etc/nginx/sites-available/default
 
-RUN chown -y -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
+RUN chown -R xfs:xfs /var/www/html/storage /var/www/html/bootstrap/cache
 
 EXPOSE 80
 CMD service nginx start && php-fpm
