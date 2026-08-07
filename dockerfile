@@ -28,6 +28,8 @@ RUN composer install --no-dev --optimize-autoloader
 # 権限の設定（エラーの原因だった部分を修正。一般的な www-data に変更）
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 
+COPY default.conf /etc/nginx/sites-available/default
+
 # ポートの開放
 EXPOSE 80
 
