@@ -1,5 +1,6 @@
 FROM php:8.5-fpm
 
+# 必要なパッケージとNginxのインストール
 RUN apt-get update && apt-get install -y \
     git \
     curl \
@@ -10,18 +11,25 @@ RUN apt-get update && apt-get install -y \
     unzip \
     nginx
 
+# PHP拡張機能のインストール
 RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
 
+# Composerの導入
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-WORKDIR /var/www
+# アプリケーションファイルのコピー
+WORKDIR /var/www/html
 COPY . .
 
-RUN composer install --no-interaction --optimize-autoloader --no-dev
+# Composerでのパッケージインストール
+ENV COMPOSER_ALLOW_SUPERUSER 1
+RUN composer install --no-dev --optimize-autoloader
 
-COPY ./nginx.conf /etc/nginx/sites-available/default
+# 権限の設定（エラーの原因だった部分を修正。一般的な www-data に変更）
+RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 
-RUN chown -R xfs:xfs /var/www/html/storage /var/www/html/bootstrap/cache
-
+# ポートの開放
 EXPOSE 80
+
+# 起動コマンド（NginxとPHP-FPMの両方を立ち上げる）
 CMD service nginx start && php-fpm
