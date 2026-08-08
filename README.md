@@ -24,7 +24,7 @@
 
 | 項目 | 内容 |
 |---|---|
-| デモURL | [https://reservation-app-production-d8ae.up.railway.app](https://reservation-app-production-d8ae.up.railway.app) |
+| デモURL | [https://reservation-app-1-slbg.onrender.com/shops](https://reservation-app-1-slbg.onrender.com/shops) |
 | 一般ユーザーアカウント | `user@example.com` / `password` |
 | オーナーアカウント | `owner@example.com` / `password` |
 
