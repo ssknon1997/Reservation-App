@@ -13,7 +13,11 @@ RUN apt-get update && apt-get install -y \
     libsqlite3-dev \
     && rm -rf /var/lib/apt/lists/*
 
-# PHP拡張機能のインストール
+# Node.jsのインストール
+RUN curl -fsSL https://deb.nodesource.com/setup_22.x | bash - \
+    && apt-get install -y nodejs
+
+# PHP拡張機能
 RUN docker-php-ext-install \
     pdo_mysql \
     pdo_sqlite \
@@ -23,30 +27,34 @@ RUN docker-php-ext-install \
     bcmath \
     gd
 
-# Composerの導入
+# Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# アプリケーションファイルのコピー
+# アプリケーション
 WORKDIR /var/www/html
 COPY . .
 
-# Composerでのパッケージインストール
+# Composer
 ENV COMPOSER_ALLOW_SUPERUSER=1
 RUN composer install --no-dev --optimize-autoloader
 
-# SQLiteデータベースファイルを作成
+# Nodeパッケージ
+RUN npm install
+
+# Viteのビルド
+RUN npm run build
+
+# SQLite
 RUN touch database/database.sqlite
 
-# Laravelのマイグレーションを実行
-RUN php artisan migrate --force
-
-# 権限の設定
-RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
+# 権限
+RUN chown -R www-data:www-data \
+    /var/www/html/storage \
+    /var/www/html/bootstrap/cache
 
 COPY default.conf /etc/nginx/sites-available/default
 
-# ポートの開放
 EXPOSE 80
 
-# 起動コマンド
+# 起動
 CMD service nginx start && php artisan migrate --force && php-fpm
