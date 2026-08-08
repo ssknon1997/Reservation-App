@@ -57,4 +57,4 @@ COPY default.conf /etc/nginx/sites-available/default
 EXPOSE 80
 
 # 起動
-CMD service nginx start && php artisan migrate --force && php-fpm
+CMD service nginx start && php artisan migrate --seed --force && php-fpm
